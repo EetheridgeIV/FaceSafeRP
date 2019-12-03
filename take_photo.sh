@@ -1,12 +1,6 @@
 #!/bin/bash
 
-if [ "$#" -ne 1 ]; then
-    echo "Error!" >&2
-    echo "usage: ./take_photo.sh [UniqueIdentifer]" >&2
-    exit 125
-else
-    UniqueIdentifer=$1
-    raspistill -o test$UniqueIdentifer.jpg
-    response = `readlink -f test$UniqueIdentifer~.jpg`
-    echo $response
-fi
+DATE=$(date +"%Y-%m-%d_%H%M")
+fswebcam -r 1280x720 --no-banner /home/pi/webcam/$DATE.jpg
+response="/home/pi/webcam/$DATE.jpg"
+echo $response

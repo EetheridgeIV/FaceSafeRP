@@ -6,6 +6,6 @@ if [ "$#" -ne 1 ]; then
     exit 125
 else
     file_path=$1
-    server_response=`curl -F "picture=@$file_path" http://bapt-sal.herokuapp.com/safe_photos/upload`
+    server_response=`curl -F "picture=@$file_path" https://dj-frsafe.herokuapp.com/upload/`
     echo $server_response
 fi
