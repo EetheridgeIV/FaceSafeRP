@@ -6,10 +6,10 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(4, GPIO.OUT)
 
 def open_lock():
-    GPIO.setup(4, GPIO.IN)
+    GPIO.setup(4, GPIO.IN) #Switch GPIO Pin 4 (BCM) to Input Mode.
 
 def close_lock():
-    GPIO.setup(4, GPIO.OUT)
+    GPIO.setup(4, GPIO.OUT) #Switch GPIO Pin 4 (BCM) to Output Mode.
 
 FAILEDATTEMPTS = 0
 
@@ -19,14 +19,15 @@ while True:
         break
 
     # Wait for user to press enter to take photo
-    input("Press enter to attempt access to safe...") 
+    input("Press enter to attempt access to safe...")
 
     # Take the person's picture, save the location of the image
-    imgLoc = subprocess.run(['./take_photo.sh'], capture_output=True).stdout.decode('utf-8') 
-    
+    imgLoc = subprocess.run(['./take_photo.sh'], capture_output=True).stdout.decode('utf-8')
+    #imgLoc = "/home/pi/baptiste.jpg"
+
     # Send image to webserver, check whether or not they have permission to open safe
     permission = subprocess.run(['./send_photo.sh', imgLoc], capture_output=True).stdout.decode('utf-8')
-    
+
     if permission == "Valid\n":
         FAILEDATTEMPTS = 0
         open_lock() # Open the lock
